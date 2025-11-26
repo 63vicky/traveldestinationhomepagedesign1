@@ -32,11 +32,13 @@ const blogs = [
 
 export function Blog() {
   return (
-    <section id="blog" className="py-24 bg-white">
+    <section id="blog" className="py-24 bg-[var(--cream)]">
       <div className="container-custom">
-        <div className="text-center mb-16">
-          <h2 className="mb-4">Travel Stories & Inspiration</h2>
-          <p className="text-[var(--text-light)] max-w-2xl mx-auto">
+        <div className="text-center mb-20">
+          <h2 className="mb-6 text-[var(--burgundy)] text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
+            Travel Stories & Inspiration
+          </h2>
+          <p className="text-[var(--text-muted)] max-w-2xl mx-auto text-lg sm:text-xl leading-relaxed font-light" style={{ fontFamily: 'var(--font-inter)' }}>
             Discover insider tips, destination guides, and inspiring stories from around the globe
           </p>
         </div>
@@ -47,8 +49,8 @@ export function Blog() {
           ))}
         </div>
 
-        <div className="text-center mt-12">
-          <button className="px-8 py-3 border-2 border-[var(--charcoal)] text-[var(--charcoal)] rounded hover:bg-[var(--charcoal)] hover:text-white transition-all">
+        <div className="text-center mt-16">
+          <button className="px-8 py-4 border-2 border-[var(--burgundy)] text-[var(--burgundy)] rounded-md hover:bg-[var(--burgundy)] hover:text-[var(--cream)] transition-all duration-300 font-medium tracking-wide uppercase text-sm" style={{ fontFamily: 'var(--font-inter)' }}>
             View All Articles
           </button>
         </div>

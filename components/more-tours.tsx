@@ -4,77 +4,97 @@ import { useEffect, useState } from "react"
 import { DestinationCard } from "./destination-card"
 import { Carousel } from "./carousel"
 
-interface Tour {
+interface Destination {
   _id: string
   title: string
   tagline: string
-  price: number
-  currency: string
+  price: string
   image: string
 }
 
 export function MoreTours() {
-  const [tours, setTours] = useState<Tour[]>([])
+  const [destinations, setDestinations] = useState<Destination[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const fetchTours = async () => {
+    const fetchDestinations = async () => {
       try {
-        const response = await fetch("/api/tours")
+        const response = await fetch("/api/destinations")
         const data = await response.json()
-        setTours(data)
+        setDestinations(data)
       } catch (error) {
-        console.error("Error fetching tours:", error)
+        console.error("Error fetching destinations:", error)
       } finally {
         setLoading(false)
       }
     }
 
-    fetchTours()
+    fetchDestinations()
   }, [])
 
-  const useCarousel = tours.length > 3
+  if (loading) {
+    return (
+      <section className="py-24 bg-[var(--cream)]">
+        <div className="container-custom">
+          <div className="text-center mb-16">
+            <h2 className="mb-4 text-[var(--burgundy)] text-3xl sm:text-4xl md:text-5xl">
+              More Extraordinary Tours
+            </h2>
+            <p className="text-[var(--text-muted)] max-w-2xl mx-auto text-base sm:text-lg">
+              Discover more curated journeys through India's most captivating destinations
+            </p>
+          </div>
+          <div className="text-center text-[var(--text-muted)]">Loading destinations...</div>
+        </div>
+      </section>
+    )
+  }
+
+  if (destinations.length === 0) {
+    return (
+      <section className="py-24 bg-[var(--cream)]">
+        <div className="container-custom">
+          <div className="text-center mb-16">
+            <h2 className="mb-4 text-[var(--burgundy)] text-3xl sm:text-4xl md:text-5xl">
+              More Extraordinary Tours
+            </h2>
+            <p className="text-[var(--text-muted)] max-w-2xl mx-auto text-base sm:text-lg">
+              Discover more curated journeys through India's most captivating destinations
+            </p>
+          </div>
+          <div className="text-center text-[var(--text-muted)]">No destinations available</div>
+        </div>
+      </section>
+    )
+  }
 
   return (
-    <section className="py-24 bg-white">
+    <section className="py-24 bg-[var(--cream)]">
       <div className="container-custom">
-        <div className="text-center mb-16">
-          <h2 className="mb-4 text-[var(--burgundy)]">More Extraordinary Tours</h2>
+        <div className="text-center mb-20">
+          <h2 className="mb-6 text-[var(--burgundy)] text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
+            More Extraordinary Tours
+          </h2>
+          <p className="text-[var(--text-muted)] max-w-2xl mx-auto text-lg sm:text-xl leading-relaxed font-light" style={{ fontFamily: 'var(--font-inter)' }}>
+            Discover more curated journeys through India's most captivating destinations
+          </p>
         </div>
 
-        {loading ? (
-          <div className="text-center text-[var(--text-light)]">Loading tours...</div>
-        ) : useCarousel ? (
-          <Carousel
-            items={tours}
-            renderItem={(tour) => (
-              <div className="px-4">
-                <DestinationCard
-                  title={tour.title}
-                  tagline={tour.tagline}
-                  price={`${tour.currency} ${tour.price}`}
-                  image={tour.image}
-                  id={tour._id}
-                />
-              </div>
-            )}
-            autoplay={true}
-            autoplayInterval={4000}
-          />
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {tours.map((tour) => (
-              <DestinationCard
-                key={tour._id}
-                title={tour.title}
-                tagline={tour.tagline}
-                price={`${tour.currency} ${tour.price}`}
-                image={tour.image}
-                id={tour._id}
-              />
-            ))}
-          </div>
-        )}
+        <Carousel
+          items={destinations}
+          renderItem={(destination) => (
+            <DestinationCard
+              title={destination.title}
+              tagline={destination.tagline}
+              price={destination.price}
+              image={destination.image}
+              id={destination._id}
+            />
+          )}
+          autoplay={true}
+          autoplayInterval={4000}
+          itemsPerView={{ mobile: 1, tablet: 2, desktop: 3 }}
+        />
       </div>
     </section>
   )

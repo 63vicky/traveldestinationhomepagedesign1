@@ -31,27 +31,27 @@ export function Navbar() {
       }`}
     >
       <div className="container-custom flex items-center justify-between">
-        <Link href="/" className="text-2xl font-bold text-[var(--gold)] tracking-wide">
+        <Link href="/" className="text-xl sm:text-2xl font-normal text-[var(--gold)] tracking-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
           The Golden Triangle
         </Link>
 
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-10">
           {navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
-              className="text-[var(--cream)] hover:text-[var(--gold)] transition-colors text-sm tracking-wide"
+              className="text-[var(--cream)] hover:text-[var(--gold)] transition-colors text-sm tracking-wide font-light uppercase text-xs" style={{ fontFamily: 'var(--font-inter)' }}
             >
               {link.label}
             </a>
           ))}
         </div>
 
-        <div className="hidden md:flex gap-4">
-          <Link href="/admin" className="px-6 py-2 text-[var(--cream)] hover:text-[var(--gold)] text-sm">
+        <div className="hidden md:flex gap-4 items-center">
+          <Link href="/admin" className="px-6 py-2 text-[var(--cream)] hover:text-[var(--gold)] text-sm font-light transition-colors" style={{ fontFamily: 'var(--font-inter)' }}>
             Admin
           </Link>
-          <button className="btn-primary text-sm">Book Now</button>
+          <button className="btn-primary">Book Now</button>
         </div>
 
         <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="md:hidden text-[var(--cream)]">

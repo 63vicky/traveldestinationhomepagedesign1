@@ -9,9 +9,13 @@ interface FeatureBlockProps {
 export function FeatureBlock({ icon: Icon, title, description }: FeatureBlockProps) {
   return (
     <div className="text-center">
-      <Icon className="w-12 h-12 text-[var(--gold)] mx-auto mb-4" />
-      <h3 className="mb-3 text-[var(--cream)]">{title}</h3>
-      <p className="text-[var(--text-light)] text-sm">{description}</p>
+      <Icon className="w-14 h-14 text-[var(--gold)] mx-auto mb-6" strokeWidth={1.5} />
+      <h3 className="mb-4 text-[var(--cream)] text-xl font-normal tracking-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
+        {title}
+      </h3>
+      <p className="text-[var(--text-light)] text-base leading-relaxed font-light" style={{ fontFamily: 'var(--font-inter)' }}>
+        {description}
+      </p>
     </div>
   )
 }

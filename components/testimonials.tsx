@@ -38,9 +38,11 @@ export function Testimonials() {
   return (
     <section className="py-24 bg-[var(--burgundy)]">
       <div className="container-custom">
-        <div className="text-center mb-16">
-          <h2 className="mb-4 text-[var(--cream)]">What Our Travelers Say</h2>
-          <p className="text-[var(--text-light)] max-w-2xl mx-auto">
+        <div className="text-center mb-20">
+          <h2 className="mb-6 text-[var(--cream)] text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
+            What Our Travelers Say
+          </h2>
+          <p className="text-[var(--text-light)] max-w-2xl mx-auto text-lg sm:text-xl leading-relaxed font-light" style={{ fontFamily: 'var(--font-inter)' }}>
             Real stories from travelers who've experienced the magic of India's Golden Triangle
           </p>
         </div>

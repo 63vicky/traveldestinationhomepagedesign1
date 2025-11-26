@@ -28,9 +28,11 @@ export function WhyChooseUs() {
   return (
     <section id="why-us" className="py-24 bg-[var(--burgundy)]">
       <div className="container-custom">
-        <div className="text-center mb-16">
-          <h2 className="mb-4 text-[var(--cream)]">Why Choose This Journey</h2>
-          <p className="text-[var(--text-light)] max-w-2xl mx-auto">
+        <div className="text-center mb-20">
+          <h2 className="mb-6 text-[var(--cream)] text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
+            Why Choose This Journey
+          </h2>
+          <p className="text-[var(--text-light)] max-w-2xl mx-auto text-lg sm:text-xl leading-relaxed font-light" style={{ fontFamily: 'var(--font-inter)' }}>
             A seamless blend of culture, heritage, and wilderness – India's essence in one journey
           </p>
         </div>

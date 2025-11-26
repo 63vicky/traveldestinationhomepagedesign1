@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react"
 
 export function SignatureTour() {
   return (
-    <section id="tours" className="relative h-[600px] flex items-center justify-center">
+    <section id="tours" className="relative min-h-[500px] sm:h-[600px] flex items-center justify-center py-12 sm:py-0">
       <div className="absolute inset-0">
         <img
           src="https://images.unsplash.com/photo-1599722173432-b55f3cb1d3ff?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080"
@@ -22,11 +22,13 @@ export function SignatureTour() {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <div className="inline-block bg-[var(--gold)] text-[var(--burgundy)] px-4 py-2 mb-6 rounded font-semibold">
-            SIGNATURE EXPERIENCE
+          <div className="inline-block bg-[var(--gold)] text-[var(--burgundy)] px-5 py-2.5 mb-8 rounded-md font-medium tracking-wider text-xs uppercase" style={{ fontFamily: 'var(--font-inter)' }}>
+            Signature Experience
           </div>
-          <h2 className="text-[var(--cream)] mb-4">Promos & Packages</h2>
-          <p className="text-[var(--text-light)] mb-8 leading-relaxed text-lg">
+          <h2 className="text-white mb-6 text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
+            Promos & Packages
+          </h2>
+          <p className="text-white/90 mb-10 leading-relaxed text-lg sm:text-xl font-light" style={{ fontFamily: 'var(--font-inter)' }}>
             Explore classic Rajasthan with its imperial forts, grand havelis, vibrant bazaars, and private cultural
             workshops. An unforgettable 10-day journey through India's most iconic destinations.
           </p>

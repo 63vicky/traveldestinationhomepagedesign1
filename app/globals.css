@@ -100,6 +100,8 @@
 @theme inline {
   --font-sans: "Geist", system-ui, sans-serif;
   --font-mono: "Geist Mono", monospace;
+  --font-playfair: var(--font-playfair), "Playfair Display", serif;
+  --font-inter: var(--font-inter), "Inter", sans-serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -151,6 +153,11 @@ html {
   scroll-behavior: smooth;
 }
 
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 /* Removed body defaults - let individual pages control their own colors */
 
 h1,
@@ -159,40 +166,72 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-sans);
-  font-weight: 600;
-  letter-spacing: -0.02em;
-}
-
-h1 {
-  font-size: 3.5rem;
+  font-family: var(--font-playfair);
+  font-weight: 400;
+  letter-spacing: -0.01em;
   line-height: 1.2;
 }
 
+h1 {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  line-height: 1.1;
+  font-weight: 400;
+}
+
 h2 {
-  font-size: 2.5rem;
-  line-height: 1.3;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  line-height: 1.2;
+  font-weight: 400;
 }
 
 h3 {
-  font-size: 1.5rem;
-  line-height: 1.4;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  line-height: 1.3;
+  font-weight: 400;
 }
 
 p {
-  line-height: 1.6;
+  font-family: var(--font-inter);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+body {
+  font-family: var(--font-inter);
 }
 
 @layer components {
   .container-custom {
-    @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-12;
+    @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 xl:px-16;
   }
 
   .btn-primary {
-    @apply px-8 py-3 bg-[var(--gold)] text-[var(--burgundy)] rounded font-semibold hover:bg-[var(--cream)] transition-all duration-200;
+    @apply px-8 py-4 bg-[var(--gold)] text-[var(--burgundy)] rounded-md font-medium tracking-wide hover:bg-[var(--cream)] transition-all duration-300 shadow-lg hover:shadow-xl;
+    font-family: var(--font-inter);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 0.875rem;
   }
 
   .btn-secondary {
-    @apply px-8 py-3 border-2 border-[var(--cream)] text-[var(--cream)] rounded hover:bg-[var(--cream)] hover:text-[var(--burgundy)] transition-all duration-200;
+    @apply px-8 py-4 border-2 border-[var(--cream)] text-[var(--cream)] rounded-md hover:bg-[var(--cream)] hover:text-[var(--burgundy)] transition-all duration-300 font-medium tracking-wide;
+    font-family: var(--font-inter);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+  }
+
+  .hero-zoom {
+    animation: heroZoomIn 60s linear infinite;
+    will-change: transform;
+  }
+
+  @keyframes heroZoomIn {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1.3);
+    }
   }
 }
