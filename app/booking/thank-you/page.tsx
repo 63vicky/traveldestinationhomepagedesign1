@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { Suspense, useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { Loader } from "lucide-react"
 
@@ -11,7 +11,7 @@ const REFERRAL_OPTIONS = [
   "Online",
 ]
 
-export default function ThankYouPage() {
+function ThankYouContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const bookingId = searchParams.get("bookingId")
@@ -146,5 +146,17 @@ export default function ThankYouPage() {
         </form>
       </div>
     </div>
+  )
+}
+
+export default function ThankYouPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-b from-[var(--burgundy)] to-[var(--burgundy-dark)] flex items-center justify-center">
+        <Loader className="animate-spin text-white" size={48} />
+      </div>
+    }>
+      <ThankYouContent />
+    </Suspense>
   )
 }
