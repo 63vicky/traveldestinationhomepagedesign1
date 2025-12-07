@@ -48,9 +48,9 @@ export function Navbar() {
         </div>
 
         <div className="hidden md:flex gap-4 items-center">
-          <Link href="/admin" className="px-6 py-2 text-[var(--cream)] hover:text-[var(--gold)] text-sm font-light transition-colors" style={{ fontFamily: 'var(--font-inter)' }}>
+          {/* <Link href="/admin" className="px-6 py-2 text-[var(--cream)] hover:text-[var(--gold)] text-sm font-light transition-colors" style={{ fontFamily: 'var(--font-inter)' }}>
             Admin
-          </Link>
+          </Link> */}
           <button className="btn-primary">Book Now</button>
         </div>
 
