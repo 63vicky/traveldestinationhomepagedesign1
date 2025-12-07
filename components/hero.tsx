@@ -18,26 +18,26 @@ export function Hero() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/60 to-[var(--burgundy)]/80" />
       </div>
 
-      <div className="relative z-10 text-center text-[var(--cream)] px-6 max-w-5xl mx-auto">
+      <div className="relative z-10 text-center text-[var(--cream)] px-5 sm:px-6 max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h1 className="mb-8 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-normal tracking-tight text-white" style={{ fontFamily: 'var(--font-playfair)' }}>
+          <h1 className="mb-6 sm:mb-8 text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-normal tracking-tight text-white leading-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
             The Golden Triangle
           </h1>
-          <p className="text-white/90 mb-10 max-w-3xl mx-auto text-lg sm:text-xl md:text-2xl leading-relaxed font-light" style={{ fontFamily: 'var(--font-inter)' }}>
+          <p className="text-white/90 mb-8 sm:mb-10 max-w-3xl mx-auto text-base sm:text-lg md:text-xl lg:text-2xl leading-relaxed font-light px-2 sm:px-0" style={{ fontFamily: 'var(--font-inter)' }}>
             Step into the timeless rhythm of India's Golden Triangle, where
             history breathes through sandstone, silk and every street. Walk
             through vibrant streets alive with colour, spices and handcrafted
             treasures.
           </p>
-          <div className="flex flex-col sm:flex-row gap-5 justify-center">
-            <button className="btn-primary">
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 justify-center items-center px-4 sm:px-0">
+            <button className="btn-primary w-full sm:w-auto">
               Start Your Journey
             </button>
-            <button className="btn-secondary">
+            <button className="btn-secondary w-full sm:w-auto">
               Learn More
             </button>
           </div>

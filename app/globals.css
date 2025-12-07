@@ -202,23 +202,31 @@ body {
 
 @layer components {
   .container-custom {
-    @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 xl:px-16;
+    @apply w-full max-w-7xl mx-auto px-5 sm:px-6 lg:px-12 xl:px-16;
   }
 
   .btn-primary {
-    @apply px-8 py-4 bg-[var(--gold)] text-[var(--burgundy)] rounded-md font-medium tracking-wide hover:bg-[var(--cream)] transition-all duration-300 shadow-lg hover:shadow-xl;
+    @apply px-6 py-3.5 sm:px-8 sm:py-4 bg-[var(--gold)] text-[var(--burgundy)] rounded-lg font-medium tracking-wide hover:bg-[var(--cream)] transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95;
     font-family: var(--font-inter);
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
+    min-height: 48px; /* Better touch target for mobile */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .btn-secondary {
-    @apply px-8 py-4 border-2 border-[var(--cream)] text-[var(--cream)] rounded-md hover:bg-[var(--cream)] hover:text-[var(--burgundy)] transition-all duration-300 font-medium tracking-wide;
+    @apply px-6 py-3.5 sm:px-8 sm:py-4 border-2 border-[var(--cream)] text-[var(--cream)] rounded-lg hover:bg-[var(--cream)] hover:text-[var(--burgundy)] transition-all duration-300 font-medium tracking-wide active:scale-95;
     font-family: var(--font-inter);
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
+    min-height: 48px; /* Better touch target for mobile */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .hero-zoom {

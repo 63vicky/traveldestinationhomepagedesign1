@@ -67,20 +67,25 @@ export function Carousel({
   }
 
   const getItemWidth = () => {
-    // Show partial items on sides - make items slightly smaller to show peek
-    if (itemsToShow >= 3) {
-      return `${90 / itemsToShow}%`
+    // On mobile, show full width cards
+    if (itemsToShow === 1) {
+      return '100%'
     }
-    return `${100 / itemsToShow}%`
+    // On tablet/desktop, show items with gap
+    if (itemsToShow === 2) {
+      return 'calc(50% - 0.5rem)'
+    }
+    // Desktop with 3+ items
+    return `calc(${100 / itemsToShow}% - ${(getGap() as string)})`
   }
 
   const getGap = () => {
-    return itemsToShow >= 3 ? '1.5rem' : '1rem'
+    return itemsToShow === 1 ? '0.5rem' : itemsToShow === 2 ? '1rem' : '1.5rem'
   }
 
   return (
     <div className="relative w-full">
-      <div className="overflow-visible px-4 sm:px-8 md:px-12 lg:px-16">
+      <div className="overflow-visible px-0 sm:px-4 md:px-8 lg:px-12">
         <div className="overflow-hidden">
           <div
             className="flex transition-transform duration-700 ease-out"
@@ -92,7 +97,7 @@ export function Carousel({
             {items.map((item, index) => (
               <div
                 key={index}
-                className="flex-shrink-0"
+                className="flex-shrink-0 px-2 sm:px-0"
                 style={{ width: getItemWidth() }}
               >
                 {renderItem(item, index)}

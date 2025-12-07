@@ -19,7 +19,6 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Wanderlux - Premium Travel Experiences",
   description: "Discover handpicked travel destinations and luxury tours around the world",
-    generator: 'v0.app'
 }
 
 export default function RootLayout({

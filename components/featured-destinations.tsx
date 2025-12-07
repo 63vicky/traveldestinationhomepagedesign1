@@ -30,19 +30,19 @@ const destinations = [
 
 export function FeaturedDestinations() {
   return (
-    <section id="destinations" className="py-24 bg-[var(--burgundy)]">
+    <section id="destinations" className="py-16 sm:py-20 md:py-24 bg-[var(--burgundy)]">
       <div className="container-custom">
-        <div className="text-center mb-20">
-          <h2 className="mb-6 text-[var(--cream)] text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
+        <div className="text-center mb-12 sm:mb-16 md:mb-20">
+          <h2 className="mb-4 sm:mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal tracking-tight text-[var(--cream)]" style={{ fontFamily: 'var(--font-playfair)' }}>
             Journeys Through Time
           </h2>
-          <p className="text-[var(--text-light)] max-w-2xl mx-auto text-lg sm:text-xl leading-relaxed font-light" style={{ fontFamily: 'var(--font-inter)' }}>
+          <p className="text-[var(--text-light)] max-w-2xl mx-auto text-base sm:text-lg md:text-xl leading-relaxed font-light px-4 sm:px-0" style={{ fontFamily: 'var(--font-inter)' }}>
             Wander through Delhi's living history, behold the eternal romance of the Taj Mahal, and lose yourself in
             Jaipur's royal mystique
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
           {destinations.map((dest) => (
             <Link key={dest.id} href={`/destinations/${dest.id}`}>
               <DestinationCard {...dest} />

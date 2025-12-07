@@ -60,21 +60,23 @@ export function Navbar() {
       </div>
 
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-[var(--burgundy-dark)] border-t border-[var(--gold)]/20 mt-4 px-4 py-4">
+        <div className="md:hidden bg-[var(--burgundy-dark)] border-t border-[var(--gold)]/20 mt-2 px-5 py-6">
           {navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
-              className="block py-2 text-[var(--cream)] hover:text-[var(--gold)] text-sm"
+              className="block py-3 text-[var(--cream)] hover:text-[var(--gold)] text-base font-light transition-colors border-b border-[var(--gold)]/10 last:border-0"
               onClick={() => setIsMobileMenuOpen(false)}
+              style={{ fontFamily: 'var(--font-inter)', minHeight: '44px', display: 'flex', alignItems: 'center' }}
             >
               {link.label}
             </a>
           ))}
           <Link
             href="/admin"
-            className="block py-2 text-[var(--cream)] hover:text-[var(--gold)] text-sm"
+            className="block py-3 text-[var(--cream)] hover:text-[var(--gold)] text-base font-light transition-colors mt-2"
             onClick={() => setIsMobileMenuOpen(false)}
+            style={{ fontFamily: 'var(--font-inter)', minHeight: '44px', display: 'flex', alignItems: 'center' }}
           >
             Admin
           </Link>
