@@ -3,6 +3,13 @@
 import { motion } from "framer-motion"
 
 export function CTA() {
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
     <section id="contact" className="relative py-20 sm:py-24 md:py-32 bg-[var(--charcoal)]">
       <div className="container-custom text-center">
@@ -20,8 +27,18 @@ export function CTA() {
             Let our travel advisors craft the perfect journey tailored to your dreams.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 justify-center items-center px-4 sm:px-0">
-            <button className="btn-primary w-full sm:w-auto">Contact Our Travel Advisor</button>
-            <button className="btn-secondary border-[var(--cream)] text-[var(--cream)] hover:bg-[var(--cream)] hover:text-[var(--charcoal)] w-full sm:w-auto">Browse All Destinations</button>
+            <button 
+              className="btn-primary w-full sm:w-auto"
+              onClick={() => scrollToSection('contact')}
+            >
+              Contact Our Travel Advisor
+            </button>
+            <button 
+              className="btn-secondary border-[var(--cream)] text-[var(--cream)] hover:bg-[var(--cream)] hover:text-[var(--charcoal)] w-full sm:w-auto"
+              onClick={() => scrollToSection('destinations')}
+            >
+              Browse All Destinations
+            </button>
           </div>
         </motion.div>
       </div>

@@ -4,6 +4,13 @@ import { motion } from "framer-motion"
 import { ArrowRight } from "lucide-react"
 
 export function SignatureTour() {
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
     <section id="tours" className="relative min-h-[500px] sm:h-[600px] flex items-center justify-center py-12 sm:py-0">
       <div className="absolute inset-0">
@@ -32,7 +39,10 @@ export function SignatureTour() {
             Explore classic Rajasthan with its imperial forts, grand havelis, vibrant bazaars, and private cultural
             workshops. An unforgettable 10-day journey through India's most iconic destinations.
           </p>
-          <button className="btn-primary flex items-center gap-2 w-full sm:w-auto justify-center">
+          <button 
+            className="btn-primary flex items-center gap-2 w-full sm:w-auto justify-center"
+            onClick={() => scrollToSection('packages')}
+          >
             View Tour Details
             <ArrowRight size={20} />
           </button>

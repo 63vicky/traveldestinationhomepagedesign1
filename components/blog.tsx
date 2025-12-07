@@ -1,3 +1,5 @@
+"use client"
+
 import { BlogCard } from "./blog-card"
 
 const blogs = [
@@ -31,6 +33,13 @@ const blogs = [
 ]
 
 export function Blog() {
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
     <section id="blog" className="py-16 sm:py-20 md:py-24 bg-[var(--cream)]">
       <div className="container-custom">
@@ -50,7 +59,11 @@ export function Blog() {
         </div>
 
         <div className="text-center mt-16">
-          <button className="px-8 py-4 border-2 border-[var(--burgundy)] text-[var(--burgundy)] rounded-md hover:bg-[var(--burgundy)] hover:text-[var(--cream)] transition-all duration-300 font-medium tracking-wide uppercase text-sm" style={{ fontFamily: 'var(--font-inter)' }}>
+          <button 
+            className="px-8 py-4 border-2 border-[var(--burgundy)] text-[var(--burgundy)] rounded-md hover:bg-[var(--burgundy)] hover:text-[var(--cream)] transition-all duration-300 font-medium tracking-wide uppercase text-sm" 
+            style={{ fontFamily: 'var(--font-inter)' }}
+            onClick={() => scrollToSection('blog')}
+          >
             View All Articles
           </button>
         </div>

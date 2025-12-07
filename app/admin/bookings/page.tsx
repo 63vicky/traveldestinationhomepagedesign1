@@ -6,19 +6,31 @@ import AdminLayout from "@/components/admin-layout"
 
 interface Booking {
   _id: string
-  guestName: string
-  guestEmail: string
-  guestPhone: string
-  startDate: string
-  endDate: string
-  numberOfGuests: number
+  // Contact Information
+  firstName: string
+  lastName: string
+  email: string
+  phoneNumber: string
+  countryCode: string
+  // Trip Details
+  destinations: string[]
+  travelYear: number
+  travelMonth: string
+  travelerType: string
+  totalTravelers: number
+  travelersUnder18: number
+  budgetAmount: number
+  currency: string
+  // Consent
+  consentEmail: boolean
+  consentSMS: boolean
+  consentContact: boolean
+  // Referral (optional from thank you page)
+  referralSource?: string
+  additionalNotes?: string
+  // Status
   status: "pending" | "confirmed" | "cancelled"
-  totalPrice: number
-  specialRequests?: string
-  destinationId?: {
-    _id: string
-    title: string
-  }
+  createdAt?: string
 }
 
 export default function BookingsPage() {
@@ -122,8 +134,9 @@ export default function BookingsPage() {
                   <thead className="bg-gray-50 border-b border-gray-200">
                     <tr>
                       <th className="text-left py-4 px-6 font-semibold text-gray-900">Guest</th>
-                      <th className="text-left py-4 px-6 font-semibold text-gray-900">Dates</th>
-                      <th className="text-left py-4 px-6 font-semibold text-gray-900">Total</th>
+                      <th className="text-left py-4 px-6 font-semibold text-gray-900">Destination</th>
+                      <th className="text-left py-4 px-6 font-semibold text-gray-900">Travel Date</th>
+                      <th className="text-left py-4 px-6 font-semibold text-gray-900">Budget</th>
                       <th className="text-left py-4 px-6 font-semibold text-gray-900">Status</th>
                       <th className="text-left py-4 px-6 font-semibold text-gray-900">Actions</th>
                     </tr>
@@ -139,18 +152,19 @@ export default function BookingsPage() {
                       >
                         <td className="py-4 px-6">
                           <div>
-                            <p className="font-medium text-gray-900">{booking.guestName}</p>
-                            <p className="text-sm text-gray-500">{booking.guestEmail}</p>
+                            <p className="font-medium text-gray-900">{booking.firstName} {booking.lastName}</p>
+                            <p className="text-sm text-gray-500">{booking.email}</p>
                           </div>
                         </td>
                         <td className="py-4 px-6 text-sm">
-                          <div>
-                            <p className="text-gray-900">{new Date(booking.startDate).toLocaleDateString()}</p>
-                            <p className="text-gray-500">to {new Date(booking.endDate).toLocaleDateString()}</p>
-                          </div>
+                          <p className="text-gray-900">{booking.destinations.join(", ")}</p>
+                        </td>
+                        <td className="py-4 px-6 text-sm">
+                          <p className="text-gray-900">{booking.travelMonth} {booking.travelYear}</p>
                         </td>
                         <td className="py-4 px-6 font-semibold text-[var(--burgundy)]">
-                          ${booking.totalPrice.toLocaleString()}
+                          {booking.currency === "USD" ? "$" : booking.currency === "EUR" ? "€" : booking.currency === "GBP" ? "£" : booking.currency === "INR" ? "₹" : booking.currency}
+                          {booking.budgetAmount.toLocaleString()}
                         </td>
                         <td className="py-4 px-6">
                           <span
@@ -201,50 +215,71 @@ export default function BookingsPage() {
                 <div className="space-y-4">
                   <div>
                     <p className="text-sm text-gray-500 font-medium">Guest Name</p>
-                    <p className="font-medium text-gray-900">{selectedBooking.guestName}</p>
+                    <p className="font-medium text-gray-900">{selectedBooking.firstName} {selectedBooking.lastName}</p>
                   </div>
                   <div>
                     <p className="text-sm text-gray-500 font-medium">Email</p>
-                    <p className="font-medium text-gray-900">{selectedBooking.guestEmail}</p>
+                    <p className="font-medium text-gray-900">{selectedBooking.email}</p>
                   </div>
                   <div>
                     <p className="text-sm text-gray-500 font-medium">Phone</p>
-                    <p className="font-medium text-gray-900">{selectedBooking.guestPhone || "—"}</p>
+                    <p className="font-medium text-gray-900">{selectedBooking.countryCode} {selectedBooking.phoneNumber}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500 font-medium">Destination</p>
-                    <p className="font-medium text-gray-900">{selectedBooking.destinationId?.title || "—"}</p>
+                    <p className="text-sm text-gray-500 font-medium">Destinations</p>
+                    <p className="font-medium text-gray-900">{selectedBooking.destinations.join(", ")}</p>
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <p className="text-sm text-gray-500 font-medium">Start Date</p>
+                      <p className="text-sm text-gray-500 font-medium">Travel Date</p>
                       <p className="font-medium text-gray-900">
-                        {new Date(selectedBooking.startDate).toLocaleDateString()}
+                        {selectedBooking.travelMonth} {selectedBooking.travelYear}
                       </p>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500 font-medium">End Date</p>
-                      <p className="font-medium text-gray-900">
-                        {new Date(selectedBooking.endDate).toLocaleDateString()}
-                      </p>
+                      <p className="text-sm text-gray-500 font-medium">Traveler Type</p>
+                      <p className="font-medium text-gray-900">{selectedBooking.travelerType}</p>
                     </div>
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <p className="text-sm text-gray-500 font-medium">Guests</p>
-                      <p className="font-medium text-gray-900">{selectedBooking.numberOfGuests}</p>
+                      <p className="text-sm text-gray-500 font-medium">Total Travelers</p>
+                      <p className="font-medium text-gray-900">{selectedBooking.totalTravelers}</p>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500 font-medium">Total Price</p>
+                      <p className="text-sm text-gray-500 font-medium">Budget per Person</p>
                       <p className="font-semibold text-[var(--burgundy)]">
-                        ${selectedBooking.totalPrice.toLocaleString()}
+                        {selectedBooking.currency === "USD" ? "$" : selectedBooking.currency === "EUR" ? "€" : selectedBooking.currency === "GBP" ? "£" : selectedBooking.currency === "INR" ? "₹" : selectedBooking.currency}
+                        {selectedBooking.budgetAmount.toLocaleString()} {selectedBooking.currency}
                       </p>
                     </div>
                   </div>
-                  {selectedBooking.specialRequests && (
+                  
+                  <div>
+                    <p className="text-sm text-gray-500 font-medium mb-2">Consent Preferences</p>
+                    <div className="text-sm space-y-1">
+                      <p className={selectedBooking.consentEmail ? "text-green-700" : "text-gray-400"}>
+                        {selectedBooking.consentEmail ? "✓" : "✗"} Email Communications
+                      </p>
+                      <p className={selectedBooking.consentSMS ? "text-green-700" : "text-gray-400"}>
+                        {selectedBooking.consentSMS ? "✓" : "✗"} SMS Communications
+                      </p>
+                      <p className={selectedBooking.consentContact ? "text-green-700" : "text-gray-400"}>
+                        {selectedBooking.consentContact ? "✓" : "✗"} Contact Permission
+                      </p>
+                    </div>
+                  </div>
+                  
+                  {selectedBooking.referralSource && (
                     <div>
-                      <p className="text-sm text-gray-500 font-medium">Special Requests</p>
-                      <p className="text-sm text-gray-700">{selectedBooking.specialRequests}</p>
+                      <p className="text-sm text-gray-500 font-medium">Referral Source</p>
+                      <p className="text-sm text-gray-700">{selectedBooking.referralSource}</p>
+                    </div>
+                  )}
+                  {selectedBooking.additionalNotes && (
+                    <div>
+                      <p className="text-sm text-gray-500 font-medium">Additional Notes</p>
+                      <p className="text-sm text-gray-700 whitespace-pre-wrap">{selectedBooking.additionalNotes}</p>
                     </div>
                   )}
 

@@ -69,7 +69,7 @@ export function MoreTours() {
   }
 
   return (
-    <section className="py-16 sm:py-20 md:py-24 bg-[var(--cream)]">
+    <section id="packages" className="py-16 sm:py-20 md:py-24 bg-[var(--cream)]">
       <div className="container-custom">
         <div className="text-center mb-12 sm:mb-16 md:mb-20">
           <h2 className="mb-4 sm:mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal tracking-tight text-[var(--burgundy)]" style={{ fontFamily: 'var(--font-playfair)' }}>

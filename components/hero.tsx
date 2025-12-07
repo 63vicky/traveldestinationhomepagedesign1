@@ -2,8 +2,18 @@
 
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export function Hero() {
+  const router = useRouter();
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
     <section
       id="home"
@@ -34,10 +44,16 @@ export function Hero() {
             treasures.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 justify-center items-center px-4 sm:px-0">
-            <button className="btn-primary w-full sm:w-auto">
-              Start Your Journey
+            <button 
+              className="btn-primary w-full sm:w-auto"
+              onClick={() => router.push('/booking')}
+            >
+              Plan Your Journey
             </button>
-            <button className="btn-secondary w-full sm:w-auto">
+            <button 
+              className="btn-secondary w-full sm:w-auto"
+              onClick={() => scrollToSection('destinations')}
+            >
               Learn More
             </button>
           </div>
@@ -48,7 +64,8 @@ export function Hero() {
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}
-          className="w-6 h-10 border-2 border-[var(--cream)]/50 rounded-full flex items-start justify-center p-2"
+          className="w-6 h-10 border-2 border-[var(--cream)]/50 rounded-full flex items-start justify-center p-2 cursor-pointer"
+          onClick={() => scrollToSection('destinations')}
         >
           <ChevronDown className="w-4 h-4 text-[var(--cream)]/50" />
         </motion.div>

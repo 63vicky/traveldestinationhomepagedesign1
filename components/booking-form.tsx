@@ -7,7 +7,7 @@ import { Loader } from "lucide-react"
 
 interface BookingFormProps {
   destinationId: string
-  destinationPrice: string
+  destinationPrice?: string
   onClose: () => void
 }
 
@@ -38,8 +38,10 @@ export default function BookingForm({ destinationId, destinationPrice, onClose }
     setLoading(true)
 
     try {
-      // Extract price amount from string like "$3,999"
-      const priceAmount = Number.parseFloat(destinationPrice.replace(/[$,]/g, ""))
+      // Extract price amount from string like "$3,999" or use 0 as fallback
+      const priceAmount = destinationPrice 
+        ? Number.parseFloat(destinationPrice.replace(/[$,]/g, "")) || 0
+        : 0
 
       const bookingData = {
         destinationId,

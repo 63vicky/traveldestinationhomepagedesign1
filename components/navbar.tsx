@@ -17,7 +17,6 @@ export function Navbar() {
   }, [])
 
   const navLinks = [
-    { label: "The Golden Triangle", href: "#home" },
     { label: "Destinations", href: "#destinations" },
     { label: "Why Choose Us", href: "#why-us" },
     { label: "Packages", href: "#packages" },
@@ -51,7 +50,9 @@ export function Navbar() {
           {/* <Link href="/admin" className="px-6 py-2 text-[var(--cream)] hover:text-[var(--gold)] text-sm font-light transition-colors" style={{ fontFamily: 'var(--font-inter)' }}>
             Admin
           </Link> */}
-          <button className="btn-primary">Book Now</button>
+          <Link href="/booking" className="btn-primary">
+            Book Now
+          </Link>
         </div>
 
         <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="md:hidden text-[var(--cream)]">
@@ -72,14 +73,14 @@ export function Navbar() {
               {link.label}
             </a>
           ))}
-          <Link
+          {/* <Link
             href="/admin"
             className="block py-3 text-[var(--cream)] hover:text-[var(--gold)] text-base font-light transition-colors mt-2"
             onClick={() => setIsMobileMenuOpen(false)}
             style={{ fontFamily: 'var(--font-inter)', minHeight: '44px', display: 'flex', alignItems: 'center' }}
           >
             Admin
-          </Link>
+          </Link> */}
         </div>
       )}
     </nav>

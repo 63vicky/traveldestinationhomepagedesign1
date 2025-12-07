@@ -11,11 +11,11 @@ interface Destination {
   title: string
   tagline: string
   price: string
-  description: string
+  description?: string
   image: string
-  category: string
-  duration: number
-  highlights: string[]
+  category?: string
+  duration?: number
+  highlights?: string[]
 }
 
 export default function DestinationPage() {
@@ -86,28 +86,34 @@ export default function DestinationPage() {
             <p className="text-xl text-[var(--text-light)] mb-6">{destination.tagline}</p>
 
             <div className="flex flex-wrap gap-6 mb-8 pb-8 border-b">
-              <div className="flex items-center gap-3">
-                <Calendar size={24} className="text-[var(--gold-accent)]" />
-                <div>
-                  <p className="text-sm text-[var(--text-light)]">Duration</p>
-                  <p className="font-semibold">{destination.duration} Days</p>
+              {destination.duration && (
+                <div className="flex items-center gap-3">
+                  <Calendar size={24} className="text-[var(--gold-accent)]" />
+                  <div>
+                    <p className="text-sm text-[var(--text-light)]">Duration</p>
+                    <p className="font-semibold">{destination.duration} Days</p>
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-center gap-3">
-                <MapPin size={24} className="text-[var(--gold-accent)]" />
-                <div>
-                  <p className="text-sm text-[var(--text-light)]">Category</p>
-                  <p className="font-semibold capitalize">{destination.category}</p>
+              )}
+              {destination.category && (
+                <div className="flex items-center gap-3">
+                  <MapPin size={24} className="text-[var(--gold-accent)]" />
+                  <div>
+                    <p className="text-sm text-[var(--text-light)]">Category</p>
+                    <p className="font-semibold capitalize">{destination.category}</p>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
 
-            <div className="mb-12">
-              <h2 className="text-2xl font-bold mb-4">About This Trip</h2>
-              <p className="text-[var(--text-light)] leading-relaxed mb-6">{destination.description}</p>
-            </div>
+            {destination.description && (
+              <div className="mb-12">
+                <h2 className="text-2xl font-bold mb-4">About This Trip</h2>
+                <p className="text-[var(--text-light)] leading-relaxed mb-6">{destination.description}</p>
+              </div>
+            )}
 
-            {destination.highlights.length > 0 && (
+            {destination.highlights && destination.highlights.length > 0 && (
               <div className="mb-12">
                 <h2 className="text-2xl font-bold mb-4">Highlights</h2>
                 <ul className="grid grid-cols-2 gap-4">

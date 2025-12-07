@@ -1,3 +1,6 @@
+"use client"
+
+import { motion } from "framer-motion"
 import { Star } from "lucide-react"
 
 interface TestimonialCardProps {
@@ -9,7 +12,11 @@ interface TestimonialCardProps {
 
 export function TestimonialCard({ quote, name, location, image }: TestimonialCardProps) {
   return (
-    <div className="bg-[var(--cream)] p-8 rounded-lg shadow-lg border border-[var(--gold)]/20">
+    <motion.div 
+      className="bg-[var(--cream)] p-8 rounded-lg shadow-lg border border-[var(--gold)]/20"
+      whileHover={{ y: -8, scale: 1.02 }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
+    >
       <div className="flex gap-1 mb-4">
         {[...Array(5)].map((_, i) => (
           <Star key={i} size={16} className="fill-[var(--gold)] text-[var(--gold)]" />
@@ -23,6 +30,6 @@ export function TestimonialCard({ quote, name, location, image }: TestimonialCar
           <p className="text-sm text-[var(--text-muted)]">{location}</p>
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }

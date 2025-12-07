@@ -230,7 +230,7 @@ body {
   }
 
   .hero-zoom {
-    animation: heroZoomIn 60s linear infinite;
+    animation: heroZoomIn 30s linear infinite;
     will-change: transform;
   }
 
