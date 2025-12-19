@@ -15,7 +15,7 @@ export function SignatureTour() {
     <section id="tours" className="relative min-h-[500px] sm:h-[600px] flex items-center justify-center py-12 sm:py-0">
       <div className="absolute inset-0">
         <img
-          src="https://images.unsplash.com/photo-1599722173432-b55f3cb1d3ff?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080"
+          src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=1121&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="Lake Palace Jaipur"
           className="w-full h-full object-cover"
         />
