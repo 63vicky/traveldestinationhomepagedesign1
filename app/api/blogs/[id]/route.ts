@@ -2,10 +2,11 @@ import { type NextRequest, NextResponse } from "next/server"
 import connectDB from "@/lib/mongodb"
 import { Blog } from "@/lib/models/blog"
 
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     await connectDB()
-    const blog = await Blog.findById(params.id)
+    const { id } = await params
+    const blog = await Blog.findById(id)
     if (!blog) {
       return NextResponse.json({ error: "Blog not found" }, { status: 404 })
     }
@@ -15,14 +16,15 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
   }
 }
 
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     await connectDB()
+    const { id } = await params
     const body = await request.json()
     if (body.published && !body.publishedAt) {
       body.publishedAt = new Date()
     }
-    const blog = await Blog.findByIdAndUpdate(params.id, body, { new: true })
+    const blog = await Blog.findByIdAndUpdate(id, body, { new: true })
     if (!blog) {
       return NextResponse.json({ error: "Blog not found" }, { status: 404 })
     }
@@ -32,10 +34,11 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
   }
 }
 
-export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     await connectDB()
-    const blog = await Blog.findByIdAndDelete(params.id)
+    const { id } = await params
+    const blog = await Blog.findByIdAndDelete(id)
     if (!blog) {
       return NextResponse.json({ error: "Blog not found" }, { status: 404 })
     }

@@ -29,7 +29,7 @@ const features = [
 
 export function WhyChooseUs() {
   return (
-    <section id="why-us" className="py-16 sm:py-20 md:py-24 bg-[var(--burgundy)]">
+    <section id="why-us" className="py-16 sm:py-20 md:py-24 bg-[var(--cream)]">
       <div className="container-custom">
         <motion.div 
           className="text-center mb-12 sm:mb-16 md:mb-20"
@@ -38,10 +38,10 @@ export function WhyChooseUs() {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7 }}
         >
-          <h2 className="mb-4 sm:mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal tracking-tight text-[var(--cream)]" style={{ fontFamily: 'var(--font-playfair)' }}>
+          <h2 className="mb-4 sm:mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal tracking-tight text-[var(--burgundy)]" style={{ fontFamily: 'var(--font-playfair)' }}>
             Why Choose This Journey
           </h2>
-          <p className="text-[var(--text-light)] max-w-2xl mx-auto text-base sm:text-lg md:text-xl leading-relaxed font-light px-4 sm:px-0" style={{ fontFamily: 'var(--font-inter)' }}>
+          <p className="text-[var(--charcoal-light)] max-w-2xl mx-auto text-base sm:text-lg md:text-xl leading-relaxed font-light px-4 sm:px-0" style={{ fontFamily: 'var(--font-inter)' }}>
             A seamless blend of culture, heritage, and wilderness – India's essence in one journey
           </p>
         </motion.div>

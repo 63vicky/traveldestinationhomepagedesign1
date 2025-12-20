@@ -25,7 +25,7 @@ export function Hero() {
           alt="Golden Triangle"
           className="w-full h-full object-cover hero-zoom"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/60 to-[var(--burgundy)]/80" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[var(--burgundy)]/40 via-[var(--burgundy)]/60 to-[var(--burgundy)]/80" />
       </div>
 
       <div className="relative z-10 text-center text-[var(--cream)] px-5 sm:px-6 max-w-5xl mx-auto">
@@ -60,7 +60,7 @@ export function Hero() {
         </motion.div>
       </div>
 
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+      <div className="absolute hidden sm:block bottom-8 left-1/2 transform -translate-x-1/2">
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}

@@ -3,6 +3,7 @@
 import type React from "react"
 
 import { useEffect, useState } from "react"
+import { motion } from "framer-motion"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 
 interface CarouselProps {
@@ -26,9 +27,11 @@ export function Carousel({
 }: CarouselProps) {
   const [current, setCurrent] = useState(0)
   const [isAutoplay, setIsAutoplay] = useState(autoplay)
-  const [itemsToShow, setItemsToShow] = useState(itemsPerView.desktop || 3)
+  const [itemsToShow, setItemsToShow] = useState(1) // Default to 1 for SSR/Mobile-first
+  const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
+    setIsMounted(true)
     const updateItemsToShow = () => {
       if (window.innerWidth >= 1024) {
         setItemsToShow(itemsPerView.desktop || 3)
@@ -66,43 +69,47 @@ export function Carousel({
     setIsAutoplay(false)
   }
 
-  const getItemWidth = () => {
-    // On mobile, show full width cards
-    if (itemsToShow === 1) {
-      return '100%'
-    }
-    // On tablet/desktop, show items with gap
-    if (itemsToShow === 2) {
-      return 'calc(50% - 0.5rem)'
-    }
-    // Desktop with 3+ items
-    return `calc(${100 / itemsToShow}% - ${(getGap() as string)})`
-  }
 
   const getGap = () => {
-    return itemsToShow === 1 ? '0.5rem' : itemsToShow === 2 ? '1rem' : '1.5rem'
+    return itemsToShow === 1 ? '16px' : itemsToShow === 2 ? '24px' : '32px'
   }
 
+  const getItemWidth = () => {
+    const gapValue = getGap()
+    // Formula: (100% - (itemsToShow - 1) * gap) / itemsToShow
+    return `calc((100% - (${itemsToShow} - 1) * ${gapValue}) / ${itemsToShow})`
+  }
+
+  if (!isMounted) return <div className="min-h-[400px]" /> // Avoid hydration mismatch
+
   return (
-    <div className="relative w-full">
-      <div className="overflow-visible px-0 sm:px-4 md:px-8 lg:px-12">
-        <div className="overflow-hidden">
+    <div className="relative w-full group/carousel">
+      <div className="overflow-visible px-4 sm:px-8 lg:px-12">
+        <div className="overflow-hidden rounded-2xl">
           <div
-            className="flex transition-transform duration-700 ease-out"
+            className="flex transition-transform duration-700 cubic-bezier(0.4, 0, 0.2, 1)"
             style={{
-              transform: `translateX(-${current * (100 / itemsToShow)}%)`,
+              transform: `translateX(calc(-${current} * (100% + ${getGap()}) / ${itemsToShow}))`,
               gap: getGap(),
             }}
           >
-            {items.map((item, index) => (
-              <div
-                key={index}
-                className="flex-shrink-0 px-2 sm:px-0"
-                style={{ width: getItemWidth() }}
-              >
-                {renderItem(item, index)}
-              </div>
-            ))}
+            {items.map((item, index) => {
+              const isActive = index >= current && index < current + itemsToShow
+              return (
+                <div
+                  key={index}
+                  className="flex-shrink-0 transition-all duration-700 ease-out"
+                  style={{ 
+                    width: getItemWidth(),
+                    opacity: isActive ? 1 : 0.3,
+                    scale: isActive ? 1 : 0.9,
+                    filter: isActive ? 'none' : 'blur(2px)',
+                  }}
+                >
+                  {renderItem(item, index)}
+                </div>
+              )
+            })}
           </div>
         </div>
       </div>
@@ -112,24 +119,24 @@ export function Carousel({
         <>
           <button
             onClick={prev}
-            className="absolute left-0 sm:left-2 md:left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-[var(--burgundy)] p-3 rounded-full transition-all duration-300 z-20 shadow-xl hover:shadow-2xl backdrop-blur-sm"
+            className="absolute left-0 sm:-left-4 lg:left-0 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white p-4 rounded-full transition-all duration-300 z-20 shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] backdrop-blur-md border border-white/20 opacity-0 group-hover/carousel:opacity-100 hidden sm:flex items-center justify-center hover:scale-110 active:scale-95"
             aria-label="Previous"
           >
-            <ChevronLeft size={24} strokeWidth={2.5} />
+            <ChevronLeft size={24} strokeWidth={1.5} />
           </button>
           <button
             onClick={next}
-            className="absolute right-0 sm:right-2 md:right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-[var(--burgundy)] p-3 rounded-full transition-all duration-300 z-20 shadow-xl hover:shadow-2xl backdrop-blur-sm"
+            className="absolute right-0 sm:-right-4 lg:right-0 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white p-4 rounded-full transition-all duration-300 z-20 shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] backdrop-blur-md border border-white/20 opacity-0 group-hover/carousel:opacity-100 hidden sm:flex items-center justify-center hover:scale-110 active:scale-95"
             aria-label="Next"
           >
-            <ChevronRight size={24} strokeWidth={2.5} />
+            <ChevronRight size={24} strokeWidth={1.5} />
           </button>
         </>
       )}
 
       {/* Dots Indicator */}
       {items.length > itemsToShow && (
-        <div className="flex justify-center gap-2 mt-8">
+        <div className="flex justify-center items-center gap-3 mt-10">
           {Array.from({ length: maxIndex + 1 }).map((_, index) => (
             <button
               key={index}
@@ -137,13 +144,28 @@ export function Carousel({
                 setCurrent(index)
                 setIsAutoplay(false)
               }}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
+              className={`group/dot relative h-1.5 transition-all duration-500 rounded-full overflow-hidden ${
                 index === current
-                  ? "bg-[var(--burgundy)] w-10"
-                  : "bg-[var(--text-muted)]/40 w-1.5 hover:bg-[var(--text-muted)]/60"
+                  ? "bg-[var(--gold)] w-10 shadow-[0_0_10px_rgba(212,175,55,0.5)]"
+                  : "bg-white/20 w-3 hover:bg-white/40"
               }`}
               aria-label={`Go to slide ${index + 1}`}
-            />
+            >
+               {index === current && (
+                <motion.div
+                  layoutId="activeDot"
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
+                  animate={{
+                    x: ['-100%', '100%'],
+                  }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                />
+              )}
+            </button>
           ))}
         </div>
       )}

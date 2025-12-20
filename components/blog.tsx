@@ -1,6 +1,7 @@
 "use client"
 
 import { BlogCard } from "./blog-card"
+import { Carousel } from "./carousel"
 
 const blogs = [
   {
@@ -52,10 +53,16 @@ export function Blog() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 md:gap-12">
-          {blogs.map((blog) => (
-            <BlogCard key={blog.id} {...blog} />
-          ))}
+        <div className="relative">
+          <Carousel
+            items={blogs}
+            renderItem={(blog) => (
+              <BlogCard {...blog} />
+            )}
+            autoplay={true}
+            autoplayInterval={6000}
+            itemsPerView={{ mobile: 1, tablet: 2, desktop: 3 }}
+          />
         </div>
 
         <div className="text-center mt-16">

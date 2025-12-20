@@ -3,10 +3,10 @@ import connectDB from "@/lib/mongodb"
 import { Destination } from "@/lib/models/destination"
 import mongoose from "mongoose"
 
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     await connectDB()
-    const { id } = params
+    const { id } = await params
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return NextResponse.json({ error: "Invalid destination ID" }, { status: 400 })
@@ -23,10 +23,10 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
   }
 }
 
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     await connectDB()
-    const { id } = params
+    const { id } = await params
     const body = await request.json()
 
     const destination = await Destination.findByIdAndUpdate(id, body, {
@@ -43,10 +43,10 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
   }
 }
 
-export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     await connectDB()
-    const { id } = params
+    const { id } = await params
 
     const destination = await Destination.findByIdAndDelete(id)
 

@@ -26,11 +26,11 @@ export function Navbar() {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-[var(--burgundy)] shadow-lg py-3" : "bg-[var(--burgundy)]/95 backdrop-blur-sm py-6"
+        isScrolled ? "bg-[var(--burgundy)] shadow-[0_4px_30px_rgba(107,62,54,0.3)] py-3" : "bg-[var(--burgundy)]/95 backdrop-blur-sm py-6"
       }`}
     >
       <div className="container-custom flex items-center justify-between">
-        <Link href="/" className="text-xl sm:text-2xl font-normal text-[var(--gold)] tracking-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
+        <Link href="/" className="text-xl sm:text-2xl font-normal text-[var(--cream)] tracking-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
           The Golden Triangle
         </Link>
 
@@ -39,7 +39,7 @@ export function Navbar() {
             <a
               key={link.label}
               href={link.href}
-              className="text-[var(--cream)] hover:text-[var(--gold)] transition-colors text-sm tracking-wide font-light uppercase text-xs" style={{ fontFamily: 'var(--font-inter)' }}
+              className="text-[var(--cream)]/80 hover:text-[var(--gold)] transition-colors text-sm tracking-wide font-light uppercase text-xs" style={{ fontFamily: 'var(--font-inter)' }}
             >
               {link.label}
             </a>
@@ -47,9 +47,6 @@ export function Navbar() {
         </div>
 
         <div className="hidden md:flex gap-4 items-center">
-          {/* <Link href="/admin" className="px-6 py-2 text-[var(--cream)] hover:text-[var(--gold)] text-sm font-light transition-colors" style={{ fontFamily: 'var(--font-inter)' }}>
-            Admin
-          </Link> */}
           <Link href="/booking" className="btn-primary">
             Book Now
           </Link>
@@ -73,14 +70,15 @@ export function Navbar() {
               {link.label}
             </a>
           ))}
-          {/* <Link
-            href="/admin"
-            className="block py-3 text-[var(--cream)] hover:text-[var(--gold)] text-base font-light transition-colors mt-2"
-            onClick={() => setIsMobileMenuOpen(false)}
-            style={{ fontFamily: 'var(--font-inter)', minHeight: '44px', display: 'flex', alignItems: 'center' }}
-          >
-            Admin
-          </Link> */}
+          <div className="mt-8">
+            <Link
+              href="/booking"
+              className="btn-primary w-full text-center block"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Book Now
+            </Link>
+          </div>
         </div>
       )}
     </nav>

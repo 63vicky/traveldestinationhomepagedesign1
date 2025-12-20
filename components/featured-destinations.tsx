@@ -3,33 +3,16 @@
 import { motion } from "framer-motion";
 import { DestinationCard } from "./destination-card";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { Carousel } from "./carousel";
 
-const destinations = [
-  {
-    id: "1",
-    title: "Delhi",
-    tagline: "Ancient temples & Mughal grandeur",
-    price: "$1,299",
-    image:
-      "https://images.unsplash.com/photo-1597040663342-45b6af3d91a5?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: "2",
-    title: "Agra & Taj Mahal",
-    tagline: "Monument to eternal love",
-    price: "$1,599",
-    image:
-      "https://images.unsplash.com/photo-1564507592333-c60657eea523?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600",
-  },
-  {
-    id: "3",
-    title: "Jaipur",
-    tagline: "The Pink City's royal palaces",
-    price: "$1,399",
-    image:
-      "https://images.unsplash.com/photo-1477587458883-47145ed94245?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-];
+interface Destination {
+  _id: string;
+  title: string;
+  tagline: string;
+  price: string;
+  image: string;
+}
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -56,10 +39,40 @@ const itemVariants = {
 };
 
 export function FeaturedDestinations() {
+  const [destinations, setDestinations] = useState<Destination[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchDestinations = async () => {
+      try {
+        const response = await fetch("/api/destinations");
+        const data = await response.json();
+        // Take only first 3 for featured
+        setDestinations(data.slice(0, 3));
+      } catch (error) {
+        console.error("Failed to fetch destinations:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDestinations();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="py-24 bg-[var(--cream)]">
+        <div className="container-custom text-center">
+          <p className="text-[var(--burgundy)]">Loading exclusive journeys...</p>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section
       id="destinations"
-      className="py-16 sm:py-20 md:py-24 bg-[var(--burgundy)]"
+      className="py-16 sm:py-20 md:py-24 bg-[var(--cream)]"
     >
       <div className="container-custom">
         <motion.div
@@ -70,13 +83,13 @@ export function FeaturedDestinations() {
           transition={{ duration: 0.8 }}
         >
           <h2
-            className="mb-4 sm:mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal tracking-tight text-[var(--cream)]"
+            className="mb-4 sm:mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal tracking-tight text-[var(--burgundy)]"
             style={{ fontFamily: "var(--font-playfair)" }}
           >
             Journeys Through Time
           </h2>
           <p
-            className="text-[var(--text-light)] max-w-2xl mx-auto text-base sm:text-lg md:text-xl leading-relaxed font-light px-4 sm:px-0"
+            className="text-[var(--charcoal-light)] max-w-2xl mx-auto text-base sm:text-lg md:text-xl leading-relaxed font-light px-4 sm:px-0"
             style={{ fontFamily: "var(--font-inter)" }}
           >
             Wander through Delhi's living history, behold the eternal romance of
@@ -84,21 +97,19 @@ export function FeaturedDestinations() {
           </p>
         </motion.div>
 
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-        >
-          {destinations.map((dest, index) => (
-            <motion.div key={dest.id} variants={itemVariants}>
-              <Link href={`/destinations/${dest.id}`}>
+        <div className="relative">
+          <Carousel
+            items={destinations}
+            renderItem={(dest: Destination) => (
+              <Link href={`/destinations/${dest._id}`}>
                 <DestinationCard {...dest} />
               </Link>
-            </motion.div>
-          ))}
-        </motion.div>
+            )}
+            autoplay={true}
+            autoplayInterval={5000}
+            itemsPerView={{ mobile: 1, tablet: 2, desktop: 3 }}
+          />
+        </div>
       </div>
     </section>
   );
